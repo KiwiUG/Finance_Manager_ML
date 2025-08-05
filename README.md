@@ -73,9 +73,11 @@ python scripts/train_model.py
 ```
 This saves:
 
+```
 model/model.pkl
 
 model/vectorizer.pkl
+```
 
 🌐 Run the Flask API
 
@@ -111,4 +113,5 @@ We'll containerize the entire Flask app and model using Podman:
 Utsav Gautam  
 GitHub: @KiwiUG  
 📍 Kathmandu, Nepal
+
 
