@@ -42,25 +42,6 @@ This project is designed to help you **learn while building**. You'll master:
 
 ---
 
-## 📂 Project Structure
-
-ai-finance-assistant/
-├── data/ # Transaction CSV files (raw & processed)
-├── model/ # Trained ML model & vectorizer
-├── scripts/ # Data preparation & training scripts
-│ ├── explore.py
-│ └── train_model.py
-├── app/ # Flask API app
-│ └── main.py
-├── requirements.txt # Python dependencies
-└── README.md # This file
-
-yaml
-Copy
-Edit
-
----
-
 ## ⚙️ Getting Started
 
 ### 1. 📥 Clone the Repo
@@ -68,28 +49,28 @@ Edit
 ```bash
 git clone https://github.com/your-username/ai-finance-assistant.git
 cd ai-finance-assistant
+```
+
 2. 🐍 Set Up a Virtual Environment
-bash
-Copy
-Edit
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 3. 📦 Install Dependencies
-bash
-Copy
-Edit
+```bash
 pip install -r requirements.txt
+```
+
 🧪 Run the ML Pipeline
+
 4. 📊 Preprocess the Data
-bash
-Copy
-Edit
+```bash
 python scripts/explore.py
+```
 5. 🤖 Train the ML Model
-bash
-Copy
-Edit
+```bash
 python scripts/train_model.py
+```
 This saves:
 
 model/model.pkl
@@ -97,39 +78,37 @@ model/model.pkl
 model/vectorizer.pkl
 
 🌐 Run the Flask API
+
 6. 🚀 Start the API Server
-bash
-Copy
-Edit
+```bash
 python app/main.py
+```
 7. 🔄 Test the Prediction API
-bash
-Copy
-Edit
+```bash
+
 curl -X POST http://localhost:5000/predict \
      -H "Content-Type: application/json" \
      -d '{"description": "Paid Uber"}'
+```
 ✅ Output:
 
-json
-Copy
-Edit
+```json
+
 {
   "description": "Paid Uber",
   "predicted_category": "Transport"
 }
-📦 Podman (Coming Next)
+```
+
+## 📦 Podman (Coming Next)
 We'll containerize the entire Flask app and model using Podman:
+- Write a Containerfile
+- Build image with podman build
+- Run containerized API using podman run
+- Optional: podman-compose for multi-container apps (e.g., add DB)
 
-Write a Containerfile
-
-Build image with podman build
-
-Run containerized API using podman run
-
-Optional: podman-compose for multi-container apps (e.g., add DB)
-
-🧑‍💻 Author
-Utsav Gautam
-GitHub: @KiwiUG
+## 🧑‍💻 Author
+Utsav Gautam  
+GitHub: @KiwiUG  
 📍 Kathmandu, Nepal
+
