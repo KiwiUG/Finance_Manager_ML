@@ -1,0 +1,33 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# Model and data files
+*.pkl
+*.joblib
+*.h5
+*.csv
+data/
+model/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# VSCode or JetBrains IDE settings (optional)
+.vscode/
+.idea/
