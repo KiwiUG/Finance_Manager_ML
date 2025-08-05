@@ -1,0 +1,6 @@
+date,description,amount,day,month,year,weekday,category
+2025-08-01,Starbucks,-5.5,1,8,2025,Friday,Food
+2025-08-01,Salary,1500.0,1,8,2025,Friday,Income
+2025-08-02,Uber,-8.75,2,8,2025,Saturday,Transport
+2025-08-03,Grocery Store,-45.0,3,8,2025,Sunday,Groceries
+2025-08-04,Electric Bill,-60.0,4,8,2025,Monday,Utilities
