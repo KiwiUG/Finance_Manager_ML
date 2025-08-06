@@ -1,40 +1,45 @@
-import json
-import pandas as pd
-import joblib
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report
 import os
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+import joblib
 
-# Load config
-with open("config/config.json") as f:
-    config = json.load(f)
+DATA_DIR = "data/processed/"
+MODEL_PATH = "model/general_model.pkl"
+ACCURACY_PATH = "model/general_accuracy.txt"
 
-# Load data
-df = pd.read_csv("data/processed/processed_transactions.csv")
-label_col = config["label_column"]
-X = df.drop(label_col, axis=1)
-y = df[label_col]
+def load_all_user_data():
+    all_data = []
+    for filename in os.listdir(DATA_DIR):
+        if filename.endswith("_processed.csv"):
+            df = pd.read_csv(os.path.join(DATA_DIR, filename))
+            all_data.append(df)
+    return pd.concat(all_data, ignore_index=True) if all_data else None
 
-# Split
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=config["test_size"], random_state=config["random_state"]
-)
+def train_general_model():
+    df = load_all_user_data()
+    if df is None or df.empty:
+        print("❌ No processed data available for general model training.")
+        return
 
-# GridSearch
-params = config["hyperparams"]
-grid = GridSearchCV(RandomForestClassifier(), params, cv=5, n_jobs=-1, verbose=1)
-grid.fit(X_train, y_train)
+    # Split features and target
+    X = df.drop(columns=["category"])
+    y = df["category"]
 
-# Evaluate
-best_model = grid.best_estimator_
-y_pred = best_model.predict(X_test)
+    # Train model
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X, y)
 
-print("✅ Best Params:", grid.best_params_)
-print("✅ Accuracy:", accuracy_score(y_test, y_pred))
-print("✅ Report:\n", classification_report(y_test, y_pred))
+    # Evaluate
+    y_pred = model.predict(X)
+    acc = accuracy_score(y, y_pred)
 
-# Save model
-os.makedirs("model", exist_ok=True)
-joblib.dump(best_model, "model/model.pkl")
-print("✅ Model saved to model/model.pkl")
+    # Save model and accuracy
+    joblib.dump(model, MODEL_PATH)
+    with open(ACCURACY_PATH, "w") as f:
+        f.write(str(acc))
+
+    print(f"✅ General model trained with accuracy: {acc:.2f}")
+
+if __name__ == "__main__":
+    train_general_model()
